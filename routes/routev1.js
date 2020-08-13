@@ -18,10 +18,14 @@ router.delete("/country/:id", deleteCountry);
 
 const {
     readUser,
-    deleteUser
+    deleteUser,
+    register,
+    loginUser
 } = require("../controllers/user");
 
 router.get("/user", readUser);
+router.post("/register", register);
+router.post("/login", loginUser);
 router.delete("/user/:id", deleteUser);
 
 module.exports = router;
