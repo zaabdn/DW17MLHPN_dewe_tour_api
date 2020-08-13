@@ -2,7 +2,7 @@ const {
     User
 } = require("../models");
 
-const bcrypt = require("bcrypt");
+const bycript = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const joi = require("@hapi/joi");
 require("dotenv").config();
@@ -54,7 +54,7 @@ exports.register = async (req, res) => {
         }
 
         const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const hashedPassword = await bycript.hash(password, saltRounds);
 
         const user = await User.create({
             fullName,
@@ -100,6 +100,32 @@ exports.loginUser = async (req, res) => {
             password: joi.string().min(8).required(),
         });
 
+        const {
+            error
+        } = schema.validate(req.body);
+
+        if (error) {
+            return res.status(400).send({
+                error: {
+                    message: error.details[0].message,
+                },
+            });
+        }
+
+        const user = await User.findOne({
+            where: {
+                email,
+            },
+        });
+
+        if (!user) {
+            return res.status(400).send({
+                error: {
+                    message: "Email or password is invalid",
+                },
+            });
+        }
+
         const validUser = await User.findOne({
             where: {
                 email,
@@ -136,7 +162,7 @@ exports.loginUser = async (req, res) => {
                 token,
             },
         });
-    } catch (error) {
+    } catch (err) {
         console.log(err);
         return res.status(500).send({
             error: {
