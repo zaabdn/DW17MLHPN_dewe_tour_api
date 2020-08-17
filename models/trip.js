@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Trip.hasOne(models.Transaction);
       Trip.hasMany(models.Country, {
-        as: "parent",
+        as: "country",
         foreignKey: {
           name: "id",
         },
@@ -23,12 +23,13 @@ module.exports = (sequelize, DataTypes) => {
   Trip.init({
     title: DataTypes.STRING,
     countryId: DataTypes.INTEGER,
-    accomodation: DataTypes.INTEGER,
+    accomodation: DataTypes.STRING,
     transportation: DataTypes.STRING,
     eat: DataTypes.STRING,
     day: DataTypes.INTEGER,
     night: DataTypes.INTEGER,
     dateTrip: DataTypes.DATE,
+    price: DataTypes.INTEGER,
     quota: DataTypes.INTEGER,
     description: DataTypes.STRING,
     image: DataTypes.STRING

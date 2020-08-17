@@ -22,7 +22,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       accomodation: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       transportation: {
         type: Sequelize.STRING
@@ -38,6 +38,9 @@ module.exports = {
       },
       dateTrip: {
         type: Sequelize.DATE
+      },
+      price: {
+        type: Sequelize.INTEGER(15)
       },
       quota: {
         type: Sequelize.INTEGER

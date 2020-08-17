@@ -12,7 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Transaction.hasMany(models.Trip, {
-        as: "parent",
+        as: "trip",
+        foreignKey: {
+          name: "id",
+        },
+      });
+      Transaction.hasMany(models.User, {
+        as: "user",
         foreignKey: {
           name: "id",
         },
@@ -24,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     total: DataTypes.INTEGER,
     status: DataTypes.STRING,
     attachment: DataTypes.STRING,
-    tripId: DataTypes.INTEGER
+    tripId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Transaction',
